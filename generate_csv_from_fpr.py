@@ -12,7 +12,7 @@ def main(jsonfile):
     GraphMe=collections.namedtuple('GraphMe', gm_fields)
 
     import csv
-    import basename
+    from os.path import basename
     with open(".".join([basename(jsonfile),'csv']), 'wb') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=gm_fields)
         writer.writeheader()
@@ -54,7 +54,7 @@ def get_files(d,wf,files):
             files=get_files(v,wf,files)
         else:
             paths=set(map(lambda y : y.filePath, filter(lambda x : x.workflowName == wf, v)))
-            files.add(*paths)
+            files.add(paths.pop())
     return files
 
 
